@@ -20,6 +20,7 @@ To do so, the fuzzywuzzy similarity is used. This library works fine for strings
 * Convert the dataframes to list or array:
   * The patient dataframe is converted to list as list is faster for comparison
   * The pcr dataframe is converted to dictionary
+  * note that we could decrease the df_patinet from the start, by deleting the records that their patinet_id is not in pcr table. However, in this case we could not correct the typos as we find all the similar records and find the right one by mode function. For example, if there are john, jonh, john, johnn as the name, then mode of these records will be john which corrects the typos.
 
 ## Solution 2 (faster) - (not uploaded yet and will be uploaded if interested)
 * Using super fast string matching
