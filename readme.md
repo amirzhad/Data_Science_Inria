@@ -1,3 +1,49 @@
+# Version française
+
+# Test technique de science des données pour l'INRIA
+
+## Contenu du référentiel
+
+* `ds_inria_main.ipynb`
+* Données: 1 fichier en sql (2 tables existent: la table patient et la table pcr)
+
+
+## Directives de test
+
+Dans ce test, nous avons deux tableaux: les informations du patient (ID, nom, famille, adresse, etc.) et le test pcr (ID et pcr). Le tableau pcr indique si un ID est COVID positif ou négatif.
+La tâche est de trouver les doublons en considérant qu'il pourrait y avoir des fautes de frappe dans les données. En outre, visualiser les cas positifs regroupés par âge et emplacement géographique.
+Il n'y a pas de contrainte dans les bibliothèques python.
+
+## Solution 1
+Pour résoudre ce problème, nous vérifions d'abord les dataframes et les nettoyons.
+
+Nous trouvons le conflit, les doublons et les identifiants erronés pour pcr dataframe:
+* identifiant de conflit: si l'identifiant dupliqué a une valeur pcr différente
+* identifiant en double: si l'identifiant est répété plus d'une fois
+* faux id: les identifiants qui ne sont pas numériques
+
+Ensuite, nous faisons la même chose pour le dataframe patient:
+* identifiant de conflit: si l'identifiant dupliqué est lié à différents patients
+* duplicate id: si un même enregistrement avec le même id est répété
+* enregistrement en double: si un enregistrement est répété plus d'une fois
+* faux identifiant: nous avons vérifié et trouvé aucun identifiant erroné dans le dataframe du patient (donc pas besoin de considérer)
+
+Afin de trouver les enregistrements dupliqués, la similitude floue est utilisée. En fait, chacun des enregistrements est comparé à d'autres dans la base de données patient et si leur similitude est suffisamment élevée (ici nous avons considéré une similitude> 90%), nous les considérons et les convertissons comme un seul enregistrement.
+
+Cette bibliothèque fonctionne très bien pour les chaînes et peut correspondre aux fautes de frappe. Cependant, la vitesse des dataframes est le problème. Afin d'accélérer la tâche, nous avons effectué ces étapes:
+* Utilisation de la bibliothèque `rapidfuzz` au lieu de` fuzzywuzzy` (le résultat est le même mais cela accélère la tâche)
+* Convertissez les dataframes en liste ou en tableau:
+  * Le dataframe patient est converti en liste car la liste est plus rapide pour la comparaison
+  * Le dataframe pcr est converti en dictionnaire
+  * Notez que nous pourrions diminuer le df_patinet depuis le début, en supprimant les enregistrements dont le patinet_id n'est pas dans la table pcr. Cependant, dans ce cas, nous n'avons pas pu corriger les fautes de frappe car nous trouvons tous les enregistrements similaires et trouvons le bon par la fonction de mode. Par exemple, s'il y a john, jonh, john, johnn comme nom, alors le mode de ces enregistrements sera john qui corrige les fautes de frappe.
+
+## Solution 2 (plus rapide) - (pas encore téléchargé et sera téléchargé si vous êtes intéressé)
+* Utilisation de la correspondance de chaînes super rapide
+Dans cette solution, la similitude tf-idf, N-Grams et Cosine sera utilisée pour faire correspondre les enregistrements (bibliothèques `TfidfVectorizer` et 'csr_matrix')
+
+###########
+
+# English Version
 # Data science technical-test for INRIA
 
 ## Repository content
