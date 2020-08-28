@@ -2,7 +2,7 @@
 
 ## Repository content
 
-* `ds_inria.ipynb`
+* `ds_inria_main.ipynb`
 * Data: 1 file in sql (2 tables exist: the patient table and the pcr table)
 
 
