@@ -17,6 +17,8 @@ Il n'y a pas de contrainte dans les bibliothèques python.
 ## Solution 1
 Pour résoudre ce problème, nous vérifions d'abord les dataframes et les nettoyons.
 
+J'ai vérifié les données pour trouver de simples doublons. J'ai également vérifié chaque colonne et ligne de données pour vérifier les mauvaises entrées de données. (J'ai ignoré les mettre dans le code soumis). J'ai créé ce code pour l'ensemble de données actuellement disponibles.
+
 Nous trouvons le conflit, les doublons et les identifiants erronés pour pcr dataframe:
 * identifiant de conflit: si l'identifiant dupliqué a une valeur pcr différente
 * identifiant en double: si l'identifiant est répété plus d'une fois
@@ -60,6 +62,8 @@ There is no constraint in python libraries.
 
 ## Solution 1
 To solve this problem we first check the dataframes and clean them.
+
+I did some data checking to find simple duplicates. I also, checked each column and row of the data to check the wrong data inputs. (I ignored putting them in submitted code). I made this code for current available data-set.
 
 We find the conflict, duplicate and wrong ids for pcr dataframe:
 * conflict id: if the duplicated id has different pcr value 
